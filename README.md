@@ -29,7 +29,7 @@ The result is a genuine interactive prototype, not a pre-rendered animation or v
 
 ## Live Demo
 
-**Try it live**: [Live Demo URL — deployed via NebulaCloud Studio]
+**Try it live**: [https://studio-public-demos.github.io/open-london-3d-showcase/](https://studio-public-demos.github.io/open-london-3d-showcase/)
 
 The demo allows you to:
 - Explore a 3D London corridor in real time
