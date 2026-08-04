@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open London 3D Drive</title>
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.0/dist/maplibre-gl.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; font-family: system-ui, -apple-system, sans-serif; }
+    #map-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    #map { width: 100%; height: 100%; }
+    #three-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+    #three-container canvas { pointer-events: auto; }
+
+    #loading-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(10,15,25,0.95); display: flex; flex-direction: column;
+      align-items: center; justify-content: center; z-index: 1000; color: #fff;
+    }
+    #loading-overlay .spinner {
+      width: 48px; height: 48px; border: 3px solid rgba(255,255,255,0.2);
+      border-top-color: #3b82f6; border-radius: 50%; animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #loading-overlay .text { margin-top: 16px; font-size: 14px; opacity: 0.7; }
+    #loading-overlay .status { margin-top: 8px; font-size: 12px; opacity: 0.5; max-width: 400px; text-align: center; }
+    #loading-overlay.hidden { opacity: 0; pointer-events: none; transition: opacity 0.5s; }
+
+    #ui-panel {
+      position: absolute; top: 10px; left: 10px; z-index: 10;
+      background: rgba(15,20,30,0.9); border-radius: 8px; padding: 12px;
+      color: #fff; font-size: 12px; min-width: 200px; backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    #ui-panel h3 { font-size: 13px; margin-bottom: 8px; color: #60a5fa; }
+    #ui-panel button {
+      display: block; width: 100%; margin: 4px 0; padding: 8px 12px;
+      background: rgba(59,130,246,0.3); border: 1px solid rgba(59,130,246,0.5);
+      color: #fff; border-radius: 4px; cursor: pointer; font-size: 11px;
+      text-align: left; transition: background 0.2s;
+    }
+    #ui-panel button:hover { background: rgba(59,130,246,0.5); }
+    #ui-panel button.active { background: rgba(59,130,246,0.7); border-color: #60a5fa; }
+    #ui-panel select {
+      width: 100%; padding: 6px 8px; margin: 4px 0; background: rgba(30,40,60,0.8);
+      color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; font-size: 11px;
+    }
+    #ui-panel .divider { height: 1px; background: rgba(255,255,255,0.1); margin: 8px 0; }
+
+    #hud {
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 10;
+      display: flex; gap: 20px; align-items: center;
+    }
+    #hud .card {
+      background: rgba(15,20,30,0.9); border-radius: 10px; padding: 12px 16px;
+      color: #fff; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);
+      text-align: center; min-width: 70px;
+    }
+    #hud .card .value { font-size: 24px; font-weight: 700; }
+    #hud .card .label { font-size: 10px; opacity: 0.5; text-transform: uppercase; letter-spacing: 1px; }
+
+    #maneuver-card {
+      position: absolute; top: 20px; right: 20px; z-index: 10;
+      background: rgba(15,20,30,0.9); border-radius: 10px; padding: 16px;
+      color: #fff; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);
+      min-width: 200px; display: none;
+    }
+    #maneuver-card.visible { display: block; }
+    #maneuver-card .direction { font-size: 18px; font-weight: 700; color: #60a5fa; }
+    #maneuver-card .street { font-size: 13px; margin-top: 4px; }
+    #maneuver-card .distance { font-size: 11px; opacity: 0.5; margin-top: 4px; }
+
+    #attribution {
+      position: absolute; bottom: 10px; right: 10px; z-index: 10;
+      font-size: 10px; color: rgba(255,255,255,0.5); text-align: right;
+      pointer-events: none;
+    }
+    #attribution a { color: rgba(255,255,255,0.7); }
+
+    #perf-panel {
+      position: absolute; top: 10px; right: 10px; z-index: 10;
+      background: rgba(0,0,0,0.6); border-radius: 4px; padding: 6px 10px;
+      color: #0f0; font-size: 10px; font-family: monospace; line-height: 1.4;
+      display: none;
+    }
+    #perf-panel.visible { display: block; }
+
+    #error-banner {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100;
+      background: rgba(180,30,30,0.95); border-radius: 10px; padding: 20px;
+      color: #fff; text-align: center; display: none; max-width: 400px;
+    }
+    #error-banner.visible { display: block; }
+    #error-banner button { margin-top: 10px; padding: 8px 16px; background: #fff; color: #900; border: none; border-radius: 4px; cursor: pointer; }
+
+    @media (max-width: 768px) {
+      #ui-panel { top: auto; bottom: 80px; left: 5px; max-width: 200px; font-size: 10px; }
+      #ui-panel button { padding: 6px 8px; font-size: 10px; }
+      #hud { bottom: 20px; gap: 10px; }
+      #hud .card { padding: 8px 12px; min-width: 50px; }
+      #hud .card .value { font-size: 18px; }
+      #maneuver-card { top: 10px; right: 5px; min-width: 150px; }
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/index-W1kCpHnR.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/maplibre-BD93s8Mz.js">
+  <link rel="modulepreload" crossorigin href="/assets/three-8ZvnQGX_.js">
+</head>
+<body>
+  <div id="map-container">
+    <div id="map"></div>
+    <div id="three-container"></div>
+  </div>
+
+  <div id="loading-overlay">
+    <div class="spinner"></div>
+    <div class="text">Loading London 3D Corridor...</div>
+    <div class="status" id="loading-status"></div>
+  </div>
+
+  <div id="perf-panel">
+    <div>FPS: <span id="perf-fps">--</span></div>
+    <div>Tris: <span id="perf-tris">--</span></div>
+    <div>Draw: <span id="perf-draws">--</span></div>
+  </div>
+
+  <div id="ui-panel">
+    <h3>London 3D Drive</h3>
+    <div class="divider"></div>
+    <button id="btn-route">Load Route</button>
+    <button id="btn-drive">Start Drive</button>
+    <button id="btn-pause">Pause</button>
+    <button id="btn-restart">Restart</button>
+    <div class="divider"></div>
+    <label style="color:#aaa;font-size:10px;">Camera</label>
+    <select id="camera-mode">
+      <option value="driver">Driver</option>
+      <option value="chase">Chase</option>
+      <option value="orbit" selected>Orbit</option>
+      <option value="pedestrian">Pedestrian</option>
+      <option value="overview">Overview</option>
+    </select>
+    <div class="divider"></div>
+    <label style="color:#aaa;font-size:10px;">Lighting</label>
+    <select id="lighting-mode">
+      <option value="day" selected>Day</option>
+      <option value="dawn">Dawn</option>
+      <option value="dusk">Dusk</option>
+      <option value="night">Night</option>
+    </select>
+    <div class="divider"></div>
+    <label style="color:#aaa;font-size:10px;">Speed</label>
+    <select id="playback-speed">
+      <option value="0.5">0.5x</option>
+      <option value="1" selected>1x</option>
+      <option value="2">2x</option>
+      <option value="5">5x</option>
+    </select>
+    <div class="divider"></div>
+    <button id="btn-perf">Toggle Perf</button>
+    <button id="btn-provenance">Provenance Debug</button>
+    <div style="font-size:9px;opacity:0.3;margin-top:8px;">Demo Mode</div>
+  </div>
+
+  <div id="hud">
+    <div class="card"><div class="value" id="hud-speed">0</div><div class="label">mph</div></div>
+    <div class="card"><div class="value" id="hud-progress">0%</div><div class="label">Progress</div></div>
+    <div class="card"><div class="value" id="hud-eta">--</div><div class="label">ETA</div></div>
+    <div class="card"><div class="value" id="hud-dist">0</div><div class="label">km</div></div>
+  </div>
+
+  <div id="maneuver-card">
+    <div class="direction" id="man-direction"></div>
+    <div class="street" id="man-street"></div>
+    <div class="distance" id="man-distance"></div>
+  </div>
+
+  <div id="attribution">
+    <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap</a> |
+    <a href="https://nebulacloud.studio" target="_blank">Built with NebulaCloud Studio</a>
+  </div>
+
+  <div id="provenance-legend" style="display:none;position:absolute;bottom:60px;left:50%;transform:translateX(-50%);z-index:10;background:rgba(0,0,0,0.85);border-radius:8px;padding:10px 16px;color:#fff;font-size:10px;font-family:monospace;line-height:1.6;">
+    <b>Height Source Legend</b><br>
+    <span style="color:#2a2">&block;</span> OSM height tag (measured)<br>
+    <span style="color:#26c">&block;</span> OSM building:levels<br>
+    <span style="color:#ca2">&block;</span> Building type estimate<br>
+    <span style="color:#c62">&block;</span> Tag inference<br>
+    <span style="color:#c22">&block;</span> Default fallback<br>
+  </div>
+
+  <div id="error-banner"><div id="error-msg"></div><button onclick="this.parentElement.classList.remove('visible')">Dismiss</button></div>
+
+</body>
+</html>
