@@ -1,0 +1,37 @@
+MIT License
+
+Copyright (c) 2026 NebulaCloud Studio Showcase
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this showcase repository and associated documentation files, to deal
+in the showcase materials without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the showcase materials, and to permit persons to whom
+the showcase materials are furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the showcase materials.
+
+THE SHOWCASE MATERIALS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SHOWCASE MATERIALS
+OR THE USE OR OTHER DEALINGS IN THE SHOWCASE MATERIALS.
+
+---
+
+Scope of Licence
+
+This licence applies ONLY to the showcase materials in this repository
+(README, screenshots, documentation, diagrams). It does NOT grant rights to:
+
+- Source code of the Open London 3D Drive application
+- NebulaCloud Studio platform or runtime
+- Proprietary prompts, workflows, or orchestration logic
+- Internal APIs, models, or datasets
+- Any implementation not explicitly included in this repository
+
+Third-party components (OpenStreetMap data, MapLibre GL JS, Three.js, etc.)
+are subject to their respective licences as documented in ATTRIBUTIONS.md.

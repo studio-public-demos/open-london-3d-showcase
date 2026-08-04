@@ -1,0 +1,5 @@
+# Showcase repository only — no source code, no implementation
+capture_screenshots.py
+*.py
+node_modules/
+.env

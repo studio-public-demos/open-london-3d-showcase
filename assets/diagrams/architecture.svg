@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="system-ui, sans-serif">
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#2a4a7f"/></linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a4a2a"/><stop offset="100%" stop-color="#2a6a3a"/></linearGradient>
+    <linearGradient id="orange" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#5a3a1a"/><stop offset="100%" stop-color="#7a5a2a"/></linearGradient>
+    <linearGradient id="purple" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#3a1a5a"/><stop offset="100%" stop-color="#5a2a7a"/></linearGradient>
+  </defs>
+  
+  <rect width="900" height="520" fill="#0f172a"/>
+  
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" font-size="20" font-weight="700" fill="#e2e8f0">Conceptual Architecture — Open London 3D Drive</text>
+  
+  <!-- User -->
+  <rect x="350" y="55" width="200" height="35" rx="6" fill="#334155" stroke="#475569" stroke-width="1"/>
+  <text x="450" y="77" text-anchor="middle" font-size="13" fill="#94a3b8">Browser (Desktop / Mobile)</text>
+  
+  <!-- Arrow down -->
+  <line x1="450" y1="90" x2="450" y2="110" stroke="#475569" stroke-width="2"/>
+  <polygon points="445,107 450,115 455,107" fill="#475569"/>
+  
+  <!-- Map Layer -->
+  <rect x="80" y="115" width="220" height="70" rx="8" fill="url(#blue)" stroke="#3b82f6" stroke-width="1"/>
+  <text x="190" y="142" text-anchor="middle" font-size="14" font-weight="700" fill="#60a5fa">MapLibre GL JS</text>
+  <text x="190" y="160" text-anchor="middle" font-size="11" fill="#94a3b8">Geographic Projection</text>
+  <text x="190" y="175" text-anchor="middle" font-size="11" fill="#94a3b8">OSM Raster Tiles</text>
+  
+  <!-- 3D Scene Layer -->
+  <rect x="340" y="115" width="220" height="70" rx="8" fill="url(#green)" stroke="#22c55e" stroke-width="1"/>
+  <text x="450" y="142" text-anchor="middle" font-size="14" font-weight="700" fill="#4ade80">Three.js 3D Scene</text>
+  <text x="450" y="160" text-anchor="middle" font-size="11" fill="#94a3b8">Building Extrusion</text>
+  <text x="450" y="175" text-anchor="middle" font-size="11" fill="#94a3b8">Roads · Water · Trees</text>
+  
+  <!-- UI Layer -->
+  <rect x="600" y="115" width="220" height="70" rx="8" fill="url(#purple)" stroke="#a855f7" stroke-width="1"/>
+  <text x="710" y="142" text-anchor="middle" font-size="14" font-weight="700" fill="#c084fc">UI Components</text>
+  <text x="710" y="160" text-anchor="middle" font-size="11" fill="#94a3b8">Controls · HUD</text>
+  <text x="710" y="175" text-anchor="middle" font-size="11" fill="#94a3b8">Attribution · Perf</text>
+  
+  <!-- Arrows between layers -->
+  <line x1="300" y1="150" x2="338" y2="150" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="560" y1="150" x2="598" y2="150" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,3"/>
+  
+  <!-- Middle Layer -->
+  <rect x="200" y="220" width="500" height="65" rx="8" fill="url(#orange)" stroke="#f59e0b" stroke-width="1"/>
+  <text x="450" y="245" text-anchor="middle" font-size="14" font-weight="700" fill="#fbbf24">Simulation Engine</text>
+  <text x="450" y="263" text-anchor="middle" font-size="11" fill="#fde68a">Route Following · Speed Model · Maneuver Guidance · Camera Controller</text>
+  <text x="450" y="278" text-anchor="middle" font-size="10" fill="#d97706">5 Camera Modes · 4 Lighting Presets · Playback Speed</text>
+  
+  <!-- Arrows up -->
+  <line x1="190" y1="185" x2="190" y2="218" stroke="#475569" stroke-width="1.5"/>
+  <polygon points="185,215 190,222 195,215" fill="#475569"/>
+  <line x1="450" y1="185" x2="450" y2="218" stroke="#475569" stroke-width="1.5"/>
+  <polygon points="445,215 450,222 455,215" fill="#475569"/>
+  <line x1="710" y1="185" x2="710" y2="218" stroke="#475569" stroke-width="1.5"/>
+  <polygon points="705,215 710,222 715,215" fill="#475569"/>
+  
+  <!-- Data Layer -->
+  <rect x="200" y="320" width="500" height="55" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="450" y="342" text-anchor="middle" font-size="14" font-weight="700" fill="#cbd5e1">Data Layer</text>
+  <text x="450" y="360" text-anchor="middle" font-size="11" fill="#64748b">Processed GeoJSON · Static Assets · Building Provenance Manifest</text>
+  
+  <!-- Arrow down to data -->
+  <line x1="450" y1="285" x2="450" y2="318" stroke="#475569" stroke-width="1.5"/>
+  <polygon points="445,315 450,322 455,315" fill="#475569"/>
+  
+  <!-- Data Sources -->
+  <rect x="80" y="410" width="340" height="50" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="250" y="432" text-anchor="middle" font-size="13" font-weight="600" fill="#94a3b8">OpenStreetMap (Overpass API)</text>
+  <text x="250" y="450" text-anchor="middle" font-size="10" fill="#64748b">Buildings · Roads · Water · Trees · ODbL 1.0</text>
+  
+  <rect x="480" y="410" width="340" height="50" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="650" y="432" text-anchor="middle" font-size="13" font-weight="600" fill="#94a3b8">OSM Raster Tiles</text>
+  <text x="650" y="450" text-anchor="middle" font-size="10" fill="#64748b">tile.openstreetmap.org · No API Key</text>
+  
+  <!-- Arrows to data sources -->
+  <line x1="250" y1="375" x2="250" y2="408" stroke="#475569" stroke-width="1.5"/>
+  <polygon points="245,405 250,412 255,405" fill="#475569"/>
+  <line x1="650" y1="375" x2="650" y2="408" stroke="#475569" stroke-width="1.5"/>
+  <polygon points="645,405 650,412 655,405" fill="#475569"/>
+  
+  <!-- Legend -->
+  <rect x="20" y="480" width="12" height="12" rx="2" fill="#3b82f6"/>
+  <text x="38" y="491" font-size="10" fill="#64748b">Map Base</text>
+  <rect x="130" y="480" width="12" height="12" rx="2" fill="#22c55e"/>
+  <text x="148" y="491" font-size="10" fill="#64748b">3D Scene</text>
+  <rect x="250" y="480" width="12" height="12" rx="2" fill="#f59e0b"/>
+  <text x="268" y="491" font-size="10" fill="#64748b">Simulation</text>
+  <rect x="370" y="480" width="12" height="12" rx="2" fill="#a855f7"/>
+  <text x="388" y="491" font-size="10" fill="#64748b">UI</text>
+  <rect x="450" y="480" width="12" height="12" rx="2" fill="#334155"/>
+  <text x="468" y="491" font-size="10" fill="#64748b">Data</text>
+</svg>
