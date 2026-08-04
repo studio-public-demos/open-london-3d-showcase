@@ -1,0 +1,35 @@
+[
+  {
+    "type": "elizabeth_tower",
+    "center": [
+      -0.12457,
+      51.50073
+    ],
+    "height": 96
+  },
+  {
+    "type": "london_eye",
+    "center": [
+      -0.11956,
+      51.50331
+    ],
+    "height": 135,
+    "width": 135
+  },
+  {
+    "type": "nelsons_column",
+    "center": [
+      -0.12795,
+      51.50773
+    ],
+    "height": 52
+  },
+  {
+    "type": "parliament",
+    "center": [
+      -0.1248,
+      51.4995
+    ],
+    "height": 30
+  }
+]

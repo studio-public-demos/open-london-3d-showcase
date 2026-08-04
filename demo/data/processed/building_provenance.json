@@ -1,0 +1,16 @@
+{
+  "generated": "2026-08-04T00:00:00Z",
+  "total_buildings": 179,
+  "height_sources": {
+    "osm_height": 7,
+    "osm_levels": 94,
+    "type_estimate": 11,
+    "default": 30
+  },
+  "measured_pct": 3.9,
+  "external_source_pct": 56.4,
+  "default_pct": 16.8,
+  "footprint_source": "OpenStreetMap via Overpass API",
+  "license": "ODbL 1.0",
+  "attribution": "\u00a9 OpenStreetMap contributors"
+}
