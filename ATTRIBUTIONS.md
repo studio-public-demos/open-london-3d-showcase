@@ -19,11 +19,17 @@
 
 | Library | Version | Licence | Website |
 |---------|---------|---------|---------|
-| MapLibre GL JS | 4.7 | BSD-3-Clause | https://maplibre.org |
-| Three.js | 0.170 | MIT | https://threejs.org |
-| Vite | 6.0 | MIT | https://vitejs.dev |
-| TypeScript | 5.6 | Apache 2.0 | https://www.typescriptlang.org |
-| Turf.js | 7.0 | MIT | https://turfjs.org |
+| MapLibre GL JS | 6.10 | BSD-3-Clause | https://maplibre.org |
+| Three.js | 0.186 | MIT | https://threejs.org |
+| Vite | 8.3 | MIT | https://vite.dev |
+
+## Routing
+
+- **Engine**: Open Source Routing Machine (OSRM)
+- **Profile**: Driving
+- **Input data**: OpenStreetMap
+- **Generated output**: `data/processed/navigation-route.json`
+- **Website**: https://project-osrm.org
 
 ## Map Tiles
 
@@ -31,17 +37,6 @@
 - **Tile URL**: https://tile.openstreetmap.org/{z}/{x}/{y}.png
 - **Licence**: ODbL 1.0
 - **Attribution**: © OpenStreetMap contributors
-
-## Landmark References
-
-Landmark models are procedurally constructed from known dimensions and geographic positions sourced from OpenStreetMap.
-
-| Landmark | Height Reference | Data Source |
-|----------|-----------------|-------------|
-| Elizabeth Tower (Big Ben) | 96 meters | Published architectural reference |
-| London Eye | 135 meters | Published architectural reference |
-| Nelson's Column | 52 meters | Published architectural reference |
-| Houses of Parliament | ~30 meters | OSM building footprint + type inference |
 
 ## Dataset Evaluation
 

@@ -1,0 +1,19 @@
+{
+  "name": "open-london-3d-showcase",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "route": "node scripts/fetch-route.mjs",
+    "validate:route": "node scripts/validate-route.mjs",
+    "build": "vite build",
+    "publish:local": "npm run route && npm run validate:route && npm run build && node scripts/publish-build.mjs"
+  },
+  "dependencies": {
+    "maplibre-gl": "^6.10.0",
+    "three": "^0.186.0"
+  },
+  "devDependencies": {
+    "vite": "^8.3.0"
+  }
+}
