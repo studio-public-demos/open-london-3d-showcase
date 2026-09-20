@@ -24,7 +24,10 @@
           <span id="route-name">Westminster Bridge to Trafalgar Square</span>
           <span><b id="route-distance">--</b> km · <b id="route-duration">--</b> min</span>
         </div>
-        <button id="provenance-toggle" class="button ghost" type="button" aria-pressed="false">Provenance</button>
+        <div class="topbar-actions">
+          <button id="performance-toggle" class="button ghost" type="button" aria-pressed="false">Metrics</button>
+          <button id="provenance-toggle" class="button ghost" type="button" aria-pressed="false">Provenance</button>
+        </div>
       </header>
       <aside class="hud" aria-label="Journey status">
         <div class="speed"><span id="speed">0</span><small>mph</small></div>
@@ -48,6 +51,16 @@
             <option value="overview">Overview</option>
             <option value="chase">Chase</option>
             <option value="driver">Driver</option>
+            <option value="orbit">Orbit</option>
+            <option value="pedestrian">Pedestrian</option>
+          </select>
+        </label>
+        <label>Lighting
+          <select id="lighting-mode">
+            <option value="day">Day</option>
+            <option value="dawn">Dawn</option>
+            <option value="dusk">Dusk</option>
+            <option value="night">Night</option>
           </select>
         </label>
         <label>Playback
@@ -65,6 +78,17 @@
         <span><i style="--swatch:#f4b942"></i>Tag inference</span>
         <span><i style="--swatch:#ef8354"></i>Type estimate</span>
         <span><i style="--swatch:#8d99ae"></i>Default</span>
+      </aside>
+      <aside id="performance-panel" class="performance" hidden aria-label="Live rendering metrics">
+        <strong>LIVE SCENE</strong>
+        <dl>
+          <div><dt>Frame rate</dt><dd><span id="metric-fps">--</span> fps</dd></div>
+          <div><dt>Frame time</dt><dd><span id="metric-frame">--</span> ms</dd></div>
+          <div><dt>Draw calls</dt><dd id="metric-draws">--</dd></div>
+          <div><dt>Triangles</dt><dd id="metric-triangles">--</dd></div>
+          <div><dt>Map zoom</dt><dd id="metric-zoom">--</dd></div>
+          <div><dt>Scene data</dt><dd id="metric-features">--</dd></div>
+        </dl>
       </aside>
       <div id="error" role="alert" hidden></div>
     </main>

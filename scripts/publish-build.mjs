@@ -4,9 +4,18 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
+const rootAssets = path.join(root, "assets");
+const distAssets = path.join(dist, "assets");
+
+const builtAssets = new Set(await fs.readdir(distAssets));
+for (const entry of await fs.readdir(rootAssets, { withFileTypes: true })) {
+  if (entry.isFile() && /\.(?:css|js)$/.test(entry.name) && !builtAssets.has(entry.name)) {
+    await fs.rm(path.join(rootAssets, entry.name));
+  }
+}
 
 await fs.copyFile(path.join(dist, "index.html"), path.join(root, "index.html"));
-await fs.cp(path.join(dist, "assets"), path.join(root, "assets"), { recursive: true });
+await fs.cp(distAssets, rootAssets, { recursive: true });
 
 const redirect = `<!doctype html>
 <html lang="en">
