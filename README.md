@@ -4,6 +4,12 @@ Open London 3D Drive is a browser-based geospatial journey from Westminster Brid
 
 **Live demo:** https://studio-public-demos.github.io/open-london-3d-showcase/
 
+## Demo video
+
+[![Open London 3D Drive demo video](assets/demo-video/open-london-3d-drive-poster.png)](https://studio-public-demos.github.io/open-london-3d-showcase/assets/demo-video/open-london-3d-drive-demo.mp4)
+
+The 56-second product film covers the road-aware drive, all five camera modes, all four visual presets, landmark context, building-height provenance, and live rendering diagnostics.
+
 ## What the project demonstrates
 
 - A single geographic coordinate and camera system for the basemap, route, 3D buildings, landmarks, trees, and vehicle.

@@ -7,13 +7,17 @@
     "route": "node scripts/fetch-route.mjs",
     "validate:route": "node scripts/validate-route.mjs",
     "build": "vite build",
-    "publish:local": "npm run route && npm run validate:route && npm run build && node scripts/publish-build.mjs"
+    "publish:local": "npm run route && npm run validate:route && npm run build && node scripts/publish-build.mjs",
+    "video:capture": "node scripts/capture-demo-video.mjs",
+    "video:render": "node scripts/render-demo-video.mjs",
+    "video": "npm run video:capture && npm run video:render"
   },
   "dependencies": {
     "maplibre-gl": "^6.10.0",
     "three": "^0.186.0"
   },
   "devDependencies": {
+    "playwright": "^1.63.0",
     "vite": "^8.3.0"
   }
 }

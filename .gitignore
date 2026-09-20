@@ -3,4 +3,5 @@ capture_screenshots.py
 node_modules/
 .env
 dist/
+artifacts/
 verify-*.png
